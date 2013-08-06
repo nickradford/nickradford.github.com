@@ -1,0 +1,12 @@
+markdown: rdiscount
+pygments: true
+permalink: /posts/:title
+rdiscount:
+  extensions: [smart]
+
+name: Nick Radford
+url: http://nicholasradford.com
+description: Just my corner on the internet.
+twitter: nick_radford
+github: nickradford
+gravatar_url: http://gravatar.com/avatar/396198e5e8afc42d2b40ccb55c2c5fdd
