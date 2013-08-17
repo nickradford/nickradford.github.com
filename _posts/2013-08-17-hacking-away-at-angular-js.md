@@ -1,11 +1,21 @@
 ---
 layout: post
 title: 'Hacking Away at Angular.js'
-date: 2013-08-16
+date: 2013-08-17
 tags: angular.js, javascript
 ---
 
 Some recent research at work has led me to [Angular.js][angular]. Angular is a full featured, client-side, web application framework from the good guys over at Google.
+
+---
+
+### Discaimer
+
+This is my first *real* foray into blogging, and it's going to be very rough for a while. I'm doing this more for me, as explaining how something works is a great way to learn it yourself. Please excuse the wall of text as I find my voice and writing style.
+
+This post is meant to be a collection of thoughts surrounding my initial findings with Angular.
+
+---
 
 ![Angular.js][angular-img]
 
@@ -29,6 +39,12 @@ The `<body>` has an `ng-app` attribute on it, which tells Angular to run in the 
 On the list item, we see two attributes: `ng-repeat` and `ng-click`. `ng-repeat` will clones the `<li>` for each `post in posts` defined on the `$scope` by the `PostsController`, and the `ng-click` registers the click handler for when that DOM element is clicked. The click handler is also defined on the `$scope` by the controller.
 
 After the `ng-click`, you'll see {% raw %}`{{title}}`{% endraw %}, which is how we interpolate strings in Angular. 
+
+The `PostsController` gets passed a `$scope` object. This is how you can expose variables to be used in the rendering of the page.
+
+What's really great here is that to render additional posts, all that needs to change is the `$scope`'s post attribute. Once that happens, the DOM will automatically update to show the added posts. Say goodbye to jQuery-spaghetti / heavy DOM manipulation code, and say hello to declarative views and insulated controllers which don't need to understand the view.
+
+Next time I'll be writing about reusable components using Angular.js. Feel free to leave me some love <sup>(or hate... however you feel)</sup> in the comments below.
 
 [angular]: http://angularjs.org
 [angular-img]: /images/angularjs.png
