@@ -1,0 +1,40 @@
+html {
+  height: 100%;
+}
+body {
+  padding: 0;
+  margin: 0;
+  background: white;
+  border-top: 4px solid #3498db;
+  height: calc(100% - 4px);
+}
+
+.content {
+  width: 240px;
+  margin: 0 auto;
+  font-family: "Raleway";
+  font-weight: 100;
+  position: relative;
+  top: 15%;
+  text-align: center;
+  color: #2c3e50;
+}
+
+.content h1{
+  text-align: center;
+}
+
+.content a {
+  color: #2c3e50;
+  display: block;
+  text-align: left;
+  font-weight: 300;
+  text-decoration: none;
+  padding: .25em 0 .25em .25em;
+  transition: all 100ms ease-in;
+}
+
+.content a:hover {
+  background: #ecf0f1;
+  color: #3498db;
+} 
