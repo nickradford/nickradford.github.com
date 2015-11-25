@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2015 by nickradford (http://jsbin.com/kimuno/3/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Tic Tac Toe</title>
+  <script src='https://npmcdn.com/expect/umd/expect.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.0.4/redux.js"></script>
+<script src="https://fb.me/react-0.14.3.js"></script>
+<script src="https://fb.me/react-dom-0.14.3.js"></script>
+<link rel="shortcut icon" type="image/png" href="./favicon-32x32.png">
+<meta property="og:url" content="http://nicholasradford.com/tic-tac-toe/" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Tic Tac Toe!" />
+<meta property="og:description" content="2 hour exploration into React and Redux" />
+<meta property="og:image" content="http://nicholasradford.com/tic-tac-toe/tic-tac-toe.png" />
+
+
+<style id="jsbin-css">
+body {
+  background: white;
+  color: rgba(0,0,0,.7);
+  font-family: 'Helvetica Neue';
+  font-weight: 100;
+}
+
+.game {
+  width: 380px;
+  height: 454px;
+  position: absolute;
+  
+  left: 50%;
+  margin-left: -190px;
+  
+  top: 50%;
+  margin-top: -227px;
+}
+
+h1 {
+  font-weight: 300;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table, td {
+  border: 8px solid #ecf0f1;
+  border-spacing: 8px;
+  transition: all 250ms ease-in-out;
+}
+
+table.X td {
+  border-color: #e74c3c;
+}
+table.X td.X {
+  font-weight: 500;
+  background-color: #e74c3c;
+  color: white;
+}
+
+table.O td {
+  border-color: #2980b9;
+}
+table.O td.O {
+  font-weight: 500;
+  background-color: #2980b9;
+  color: white;
+}
+
+td {
+  background-color: white;
+  padding: 8px;
+  text-align: center;
+  margin: 8px;
+  height: 100px;
+  width: 100px;
+  font-size: 80px;
+}
+
+span.X,
+td.X,
+tbody.X {
+  color: #e74c3c;
+}
+
+span.O,
+td.O,
+tbody.O {
+  color: #2980b9;
+}
+
+
+.info {
+  position: relative;
+}
+
+.info h1 {
+  display: inline-block;
+  height: 32px;
+}
+
+.info .restart {
+  line-height: 32px;
+  font-size: 32px;
+  padding: 10px 20px;
+  margin-left: 1em;
+  border: 0;
+  background-color: #9b59b6;
+  color: white;
+  position: absolute;
+  right: 0;
+  top: 16px
+}
+
+
+
+
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+<script>
+// Not your Mothers Javascript
+
+'use strict';
+
+var genEmptyBoard = function genEmptyBoard() {
+  return [[null, null, null], [null, null, null], [null, null, null]];
+};
+
+var GAME = {
+  playersTurn: 'X',
+  board: genEmptyBoard(),
+  winner: undefined,
+  tie: false
+};
+
+var makePlay = function makePlay(state, action) {
+  if (state.winner) {
+    return state;
+  }
+  var cell = state.board[action.row][action.column];
+
+  if (cell) {
+    return state;
+  }
+
+  var obj = Object.assign({}, state);
+  obj.board = state.board.slice(0);
+
+  obj.board[action.row][action.column] = state.playersTurn;
+  obj.playersTurn = state.playersTurn == 'X' ? 'O' : 'X';
+
+  return obj;
+};
+
+var checkWin = function checkWin(state) {
+  var game = Object.assign({}, state);
+  var winner = undefined;
+
+  var wins = [
+  // Horizontal
+  [[0, 0], [0, 1], [0, 2]], [[1, 0], [1, 1], [1, 2]], [[2, 0], [2, 1], [2, 2]],
+
+  // Vertical
+  [[0, 0], [1, 0], [2, 0]], [[0, 1], [1, 1], [2, 1]], [[0, 2], [1, 2], [2, 2]],
+
+  // Diagonal
+  [[0, 0], [1, 1], [2, 2]], [[2, 0], [1, 1], [0, 2]]];
+
+  var catStr = '';
+
+  wins.forEach(function (win) {
+    var val = win.map(function (coord) {
+      var x = coord[0],
+          y = coord[1];
+      return game.board[x][y];
+    }).join('');
+
+    if (val === 'XXX' || val === 'OOO') {
+      winner = val.split('')[0];
+    }
+
+    catStr += val;
+  });
+
+  if (winner) {
+    game.winner = winner;
+  }
+
+  if (catStr.length == 24) {
+    game.tie = true;
+  }
+
+  return game;
+};
+
+// REDUCER
+//
+//
+var game = function game(state, action) {
+  state = state || Object.assign({}, GAME);
+  switch (action.type) {
+    case 'PLAY':
+      state = makePlay(state, action);
+      state = checkWin(state);
+      return state;
+
+    case 'RESTART':
+      state = Object.assign({}, GAME);
+      state.board = genEmptyBoard();
+      return state;
+
+    default:
+      return state;
+  }
+};
+
+var _Redux = Redux;
+var createStore = _Redux.createStore;
+
+var store = createStore(game);
+
+var Game = function Game(_ref) {
+  var game = _ref.game;
+
+  var rows = [];
+  var board = game.board;
+
+  board.forEach(function (row, rowIndex) {
+    var columns = [];
+    var rowKey = 'row-' + rowIndex;
+
+    row.forEach(function (column, colIndex) {
+      var key = 'cell-' + rowIndex + '-' + colIndex;
+      columns.push(React.createElement(
+        'td',
+        { key: key,
+          className: column,
+          onClick: function () {
+            store.dispatch({
+              type: 'PLAY',
+              row: rowIndex,
+              column: colIndex });
+          } },
+        column
+      ));
+    });
+
+    rows.push(React.createElement(
+      'tr',
+      { key: rowKey },
+      columns
+    ));
+  });
+
+  var info = (function () {
+    var restart = React.createElement(
+      'button',
+      { className: 'restart', onClick: function () {
+          store.dispatch({ type: 'RESTART' });
+        } },
+      'Restart'
+    );
+    if (game.winner) {
+      return React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'h1',
+          null,
+          'Player ',
+          React.createElement(
+            'span',
+            { className: game.winner },
+            game.winner
+          ),
+          ' won!!!'
+        ),
+        restart
+      );
+    } else if (game.tie) {
+      return React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'h1',
+          null,
+          'Scratch game :/'
+        ),
+        restart
+      );
+    } else {
+      return React.createElement(
+        'h1',
+        null,
+        'Players turn: ',
+        React.createElement(
+          'span',
+          { className: game.playersTurn },
+          game.playersTurn
+        )
+      );
+    }
+  })();
+
+  return React.createElement(
+    'div',
+    { className: 'game' },
+    React.createElement(
+      'table',
+      { className: game.winner },
+      React.createElement(
+        'tbody',
+        { className: game.playersTurn },
+        rows
+      )
+    ),
+    React.createElement(
+      'div',
+      { className: 'info' },
+      info
+    )
+  );
+};
+
+var render = function render() {
+  ReactDOM.render(React.createElement(Game, {
+    game: store.getState()
+  }), document.getElementById('root'));
+};
+
+store.subscribe(render);
+render();
+
+/* Thanks Babeljs.io
+
+
+http://babeljs.io/repl/#?experimental=true&evaluate=true&loose=false&spec=false&code=const%20genEmptyBoard%20%3D%20()%20%3D%3E%20(%5B%0A%20%20%20%20%5Bnull%2C%20null%2C%20null%5D%2C%0A%20%20%20%20%5Bnull%2C%20null%2C%20null%5D%2C%0A%20%20%20%20%5Bnull%2C%20null%2C%20null%5D%0A%20%20%20%5D)%0A%0Aconst%20GAME%20%3D%20%7B%0A%20%20playersTurn%3A%20'X'%2C%0A%20%20board%3A%20genEmptyBoard()%2C%0A%20%20winner%3A%20undefined%2C%0A%20%20tie%3A%20false%0A%7D%0A%0Aconst%20makePlay%20%3D%20(state%2C%20action)%20%3D%3E%20%7B%0A%20%20if%20(state.winner)%20%7B%0A%20%20%20%20return%20state%0A%20%20%7D%0A%20%20let%20cell%20%3D%20state.board%5Baction.row%5D%5Baction.column%5D%0A%20%20%0A%20%20if%20(cell)%20%7B%0A%20%20%20%20return%20state%0A%20%20%7D%0A%20%20%0A%20%20let%20obj%20%3D%20Object.assign(%7B%7D%2C%20state)%0A%20%20obj.board%20%3D%20state.board.slice(0)%3B%0A%20%20%0A%20%20obj.board%5Baction.row%5D%5Baction.column%5D%20%3D%20state.playersTurn%0A%20%20obj.playersTurn%20%3D%20state.playersTurn%20%3D%3D%20'X'%20%3F%20'O'%20%3A%20'X'%0A%20%20%0A%20%20return%20obj%0A%7D%0A%0Aconst%20checkWin%20%3D%20(state)%20%3D%3E%20%7B%0A%20%20let%20game%20%3D%20Object.assign(%7B%7D%2C%20state)%0A%20%20let%20winner%20%3D%20undefined%0A%20%20%0A%20%20let%20wins%20%3D%20%5B%0A%20%20%20%20%2F%2F%20Horizontal%0A%20%20%20%20%5B%5B0%2C0%5D%2C%20%5B0%2C1%5D%2C%20%5B0%2C2%5D%5D%2C%0A%20%20%20%20%5B%5B1%2C0%5D%2C%20%5B1%2C1%5D%2C%20%5B1%2C2%5D%5D%2C%0A%20%20%20%20%5B%5B2%2C0%5D%2C%20%5B2%2C1%5D%2C%20%5B2%2C2%5D%5D%2C%0A%0A%20%20%20%20%2F%2F%20Vertical%0A%20%20%20%20%5B%5B0%2C0%5D%2C%20%5B1%2C0%5D%2C%20%5B2%2C0%5D%5D%2C%0A%20%20%20%20%5B%5B0%2C1%5D%2C%20%5B1%2C1%5D%2C%20%5B2%2C1%5D%5D%2C%0A%20%20%20%20%5B%5B0%2C2%5D%2C%20%5B1%2C2%5D%2C%20%5B2%2C2%5D%5D%2C%0A%0A%20%20%20%20%2F%2F%20Diagonal%0A%20%20%20%20%5B%5B0%2C0%5D%2C%20%5B1%2C1%5D%2C%20%5B2%2C2%5D%5D%2C%0A%20%20%20%20%5B%5B2%2C0%5D%2C%20%5B1%2C1%5D%2C%20%5B0%2C2%5D%5D%0A%0A%20%20%5D%0A%20%20%0A%20%20let%20catStr%20%3D%20''%0A%0A%20%20wins.forEach(%20win%20%3D%3E%20%7B%0A%20%20%20%20let%20val%20%3D%20win.map(%20coord%20%3D%3E%20%7B%0A%20%20%20%20%20%20let%20x%20%3D%20coord%5B0%5D%2C%0A%20%20%20%20%20%20%20%20%20%20y%20%3D%20coord%5B1%5D%0A%20%20%20%20%20%20return%20game.board%5Bx%5D%5By%5D%0A%20%20%20%20%7D).join('')%0A%20%20%20%20%0A%20%20%20%20if%20(val%20%3D%3D%3D%20'XXX'%20%7C%7C%20val%20%3D%3D%3D%20'OOO')%20%7B%0A%20%20%20%20%20%20winner%20%3D%20val.split('')%5B0%5D%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20catStr%20%2B%3D%20val%0A%20%20%7D)%0A%20%20%0A%20%20if%20(winner)%20%7B%0A%20%20%20%20game.winner%20%3D%20winner%0A%20%20%7D%0A%20%20%0A%20%20if%20(catStr.length%20%3D%3D%2024)%20%7B%0A%20%20%20%20game.tie%20%3D%20true%0A%20%20%7D%0A%20%20%20%20%0A%20%20return%20game%0A%7D%0A%0A%0A%2F%2F%20REDUCER%0A%2F%2F%0A%2F%2F%0Aconst%20game%20%3D%20(state%2C%20action)%20%3D%3E%20%7B%0A%20%20state%20%3D%20state%20%7C%7C%20Object.assign(%7B%7D%2C%20GAME)%0A%20%20switch%20(action.type)%20%7B%0A%20%20%20%20case%20'PLAY'%3A%0A%20%20%20%20%20%20state%20%3D%20makePlay(state%2C%20action)%0A%20%20%20%20%20%20state%20%3D%20checkWin(state)%0A%20%20%20%20%20%20return%20state%3B%0A%20%20%20%20%20%20%0A%20%20%20%20case%20'RESTART'%3A%0A%20%20%20%20%20%20state%20%3D%20Object.assign(%7B%7D%2C%20GAME)%0A%20%20%20%20%20%20state.board%20%3D%20genEmptyBoard()%0A%20%20%20%20%20%20return%20state%3B%0A%20%20%20%20%0A%20%20%20%20default%3A%0A%20%20%20%20%20%20return%20state%0A%20%20%7D%0A%7D%0A%0Aconst%20%7B%20createStore%20%7D%20%3D%20Redux%0Aconst%20store%20%3D%20createStore(game)%0A%0Aconst%20Game%20%3D%20(%7B%0A%20%20game%0A%7D)%20%3D%3E%20%7B%0A%20%20%0A%20%20let%20rows%20%3D%20%5B%5D%0A%20%20const%20board%20%3D%20game.board%0A%20%20%0A%20%20board.forEach(%20(row%2C%20rowIndex)%20%3D%3E%20%7B%0A%20%20%20%20let%20columns%20%3D%20%5B%5D%0A%20%20%20%20let%20rowKey%20%3D%20%60row-%24%7BrowIndex%7D%60%0A%20%20%20%20%0A%20%20%20%20row.forEach(%20(column%2C%20colIndex)%20%3D%3E%20%7B%0A%20%20%20%20%20%20let%20key%20%3D%20%60cell-%24%7BrowIndex%7D-%24%7BcolIndex%7D%60%0A%20%20%20%20%20%20columns.push(%0A%20%20%20%20%20%20%20%20%3Ctd%20key%3D%7Bkey%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20className%3D%7Bcolumn%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20onClick%3D%7B()%20%3D%3E%20%7Bstore.dispatch(%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20type%3A%20'PLAY'%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20row%3A%20rowIndex%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20column%3A%20colIndex%7D)%7D%7D%3E%7Bcolumn%7D%3C%2Ftd%3E%0A%20%20%20%20%20%20)%0A%20%20%20%20%7D)%0A%20%20%20%20%0A%20%20%20%20rows.push(%0A%20%20%20%20%20%20%3Ctr%20key%3D%7BrowKey%7D%3E%7Bcolumns%7D%3C%2Ftr%3E%0A%20%20%20%20)%0A%20%20%7D)%0A%20%20%0A%20%20let%20info%20%3D%20(()%20%3D%3E%20%7B%0A%20%20%20%20let%20restart%20%3D%20(%0A%20%20%20%20%20%20%3Cbutton%20className%3D'restart'%20onClick%3D%7B()%20%3D%3E%20%7Bstore.dispatch(%7Btype%3A%20'RESTART'%7D)%7D%7D%3ERestart%3C%2Fbutton%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20)%0A%20%20%20%20if%20(game.winner)%20%7B%0A%20%20%20%20%20%20%20return%20(%0A%20%20%20%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%3Ch1%3EPlayer%20%3Cspan%20className%3D%7Bgame.winner%7D%3E%7Bgame.winner%7D%3C%2Fspan%3E%20won!!!%3C%2Fh1%3E%0A%20%20%20%20%20%20%20%20%20%7Brestart%7D%0A%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20)%20%0A%20%20%20%20%7D%0A%20%20%20%20else%20if%20(game.tie)%20%7B%0A%20%20%20%20%20%20return%20(%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch1%3EScratch%20game%20%3A%2F%3C%2Fh1%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7Brestart%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E)%0A%20%20%20%20%7D%0A%20%20%20%20else%20%7B%0A%20%20%20%20%20%20return%20(%0A%20%20%20%20%20%20%20%20%3Ch1%3EPlayers%20turn%3A%20%3Cspan%20className%3D%7Bgame.playersTurn%7D%3E%7Bgame.playersTurn%7D%3C%2Fspan%3E%3C%2Fh1%3E%0A%20%20%20%20%20%20%20)%0A%20%20%20%20%7D%0A%20%20%7D)()%0A%20%20%0A%20%20%0A%20%20return%20(%0A%20%20%20%20%3Cdiv%20className%3D'game'%3E%0A%20%20%20%20%20%20%3Ctable%20className%3D%7Bgame.winner%7D%3E%0A%20%20%20%20%20%20%20%20%3Ctbody%20className%3D%7Bgame.playersTurn%7D%3E%0A%20%20%20%20%20%20%20%20%20%20%7Brows%7D%0A%20%20%20%20%20%20%20%20%3C%2Ftbody%3E%0A%20%20%20%20%20%20%3C%2Ftable%3E%0A%20%20%20%20%20%20%3Cdiv%20className%3D'info'%3E%7Binfo%7D%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20)%0A%7D%0A%0Aconst%20render%20%3D%20()%20%3D%3E%20%7B%0A%20%20ReactDOM.render(%0A%20%20%20%20%3CGame%20%0A%20%20%20%20%20%20game%3D%7Bstore.getState()%7D%0A%20%20%20%20%20%2F%3E%0A%20%20%2C%20document.getElementById('root'))%0A%7D%0A%0Astore.subscribe(render)%0Arender()
+
+
+*/
+
+</script>
+</body>
+</html>
