@@ -17,6 +17,7 @@ Released under the MIT license: http://jsbin.mit-license.org
     <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.0.4/redux.js"></script>
 <script src="https://fb.me/react-0.14.3.js"></script>
 <script src="https://fb.me/react-dom-0.14.3.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js"></script>
 <link rel="shortcut icon" type="image/png" href="./favicon-32x32.png">
 <meta property="og:url" content="http://nicholasradford.com/tic-tac-toe/" />
 <meta property="og:type" content="article" />
@@ -129,7 +130,13 @@ tbody.O {
 </head>
 <body>
   <div id="root"></div>
-
+<script>
+  if ('addEventListener' in document) {
+    document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+    }, false);
+}
+</script>
 <script>
 // Not your Mothers Javascript
 
