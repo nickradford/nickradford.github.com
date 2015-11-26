@@ -2,8 +2,7 @@
 <html>
     <head>
         <link href='http://fonts.googleapis.com/css?family=Raleway:100,300' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-        <meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">        <meta charset="utf-8">
         <meta name="description" content="Nicholas Radford">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Nick Radford</title>
@@ -12,19 +11,28 @@
     </head>
     <body>
 
-      <section class="content">
-        <img src="./images/nickradford.png" alt="" width='200'>
-        <h1>Nick Radford</h1>
-
-        <a href='http://github.com/nickradford' target='_blank'>
-          <i class='ion-social-github'></i> nickradford
-        </a>
-        <a href='http://twitter.com/nick_radford' target='_blank'>
-          <i class='ion-social-twitter'></i> @nick_radford
-        </a>
-        <a href='mailto:nick@nicholasradford.com?subject=Hello!'>
-          <i class='ion-email'></i> nick@nicholasradford.com
-        </a>
+      <section class="content hide">
+        <div class='image'>
+          <img src="./images/me.jpg" alt="" width='216'>
+        </div>
+        <div class='about-me'>
+          <h1>Nick Radford</h1>
+          <h2>Bay Area, CA</h2>
+        </div>
+        <div class='contact'>
+          <a class='github' href='http://github.com/nickradford' target='_blank'>
+            <i class='fa fa-github'></i>
+          </a>
+          <a class='twitter' href='http://twitter.com/nick_radford' target='_blank'>
+            <i class='fa fa-twitter'></i>
+          </a>
+          <a class='medium' href='https://medium.com/@nick_radford' target='_blank'>
+            <i class='fa fa-medium'></i>
+          </a>
+          <a class='email' href='mailto:nick@nicholasradford.com?subject=Hello!'>
+            <i class='fa fa-envelope'></i>
+          </a>
+        </div>
       </section>
       <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -34,6 +42,25 @@
 
         ga('create', 'UA-12199454-4', 'auto');
         ga('send', 'pageview');
+
+      </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/trianglify/0.4.0/trianglify.min.js"></script>
+
+      <script>
+      var el = document.querySelector('.image')
+      var pattern = Trianglify({
+        width: el.clientWidth,
+        height: el.clientHeight,
+        // x_colors: 'Blues',
+        // y_colors: 'Greens'
+      })
+
+      var png = pattern.png()
+
+      el.style.background = "url(" + png + ")"
+
+      var content = document.querySelector('.content')
+      content.classList.remove('hide')
 
       </script>
     </body>
