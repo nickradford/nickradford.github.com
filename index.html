@@ -38,8 +38,8 @@
     </div>
     <div class='about-me'>
       <h1>Nick Radford</h1>
-      <h2>Engineer at <a href='http://zignallabs.com' target="_blank">ZignalLabs</a></h2>
-      <h3>San Francisco, CA</h3>
+      <h2>Engineer at <a href='http://euclidanalytics.com' target="_blank">Euclid Analytics</a></h2>
+      <h3>in San Francisco, CA</h3>
     </div>
     <div class='contact'>
       <a class='github' href='http://github.com/nickradford' target='_blank'>
@@ -79,8 +79,8 @@
     var pattern = Trianglify({
       width: el.clientWidth,
       height: el.clientHeight,
-      // x_colors: 'Blues',
-      // y_colors: 'Greens'
+      x_colors: 'PuRd',
+      y_colors: 'PuRd'
     })
 
     var png = pattern.png()
@@ -88,7 +88,9 @@
     el.style.background = "url(" + png + ")"
 
     var content = document.querySelector('.content')
-    content.classList.remove('hide')
+    setTimeout(function() {
+      content.classList.remove('hide')
+    }, 100)
   </script>
 </body>
 
