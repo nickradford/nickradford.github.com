@@ -11,7 +11,7 @@ body {
 }
 
 .content {
-  width: 304px;
+  width: 360px;
 
   margin: 0 auto;
   position: relative;
@@ -140,6 +140,22 @@ a.medium:hover {
   color: white;
 }
 
+a.linked-in {
+  color: #0077B5
+}
+a.linked-in:hover {
+  background: #0077B5;
+  color: white;
+}
+
+a.resume {
+  color: #9b59b6;
+}
+a.resume:hover {
+  background: #9b59b6;
+  color: white;
+}
+
 a.email {
   color: #dc4e41;
 }
@@ -150,10 +166,9 @@ a.email:hover {
 
 .content .contact a {
   font-size: 24px;
-  width: 25%;
+  width: 60px;
   height: 60px;
   display: inline-block;
   line-height: 60px;
-
   transition: all 150ms ease-in;
 }
