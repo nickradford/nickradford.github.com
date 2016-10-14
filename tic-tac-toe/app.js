@@ -19874,7 +19874,9 @@
 	            _react2.default.createElement(
 	                'span',
 	                { className: game.winner },
-	                game.winner
+	                ' ',
+	                game.winner,
+	                ' '
 	            ),
 	            'won!!!'
 	        ),
