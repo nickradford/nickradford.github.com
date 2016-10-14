@@ -19853,7 +19853,7 @@
 	    return _react2.default.createElement(
 	        'h1',
 	        null,
-	        'Players turn:',
+	        'Player\'s turn:',
 	        _react2.default.createElement(
 	            'span',
 	            { className: game.playersTurn },
