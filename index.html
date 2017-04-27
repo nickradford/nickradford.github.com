@@ -80,28 +80,16 @@
     ga('send', 'pageview');
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/trianglify/0.4.0/trianglify.min.js"></script>
-
+  <script src='./scripts/particles.min.js'></script>
   <script>
-    // var el = document.querySelector('.image')
-    // var pattern = Trianglify({
-    //   width: el.clientWidth,
-    //   height: el.clientHeight,
-    //   x_colors: 'PuRd',
-    //   y_colors: 'PuRd'
-    // })
-    //
-    // var png = pattern.png()
-    //
-    // el.style.background = "url(" + png + ")"
-    //
+    // Load Particles
+    particlesJS.load('particles', './util/particle.config.json')
+    
+    // Fade in content
     var content = document.querySelector('.content')
     setTimeout(function() {
       content.classList.remove('hide')
-    }, 0)
-  </script>
-  <script src='./scripts/particles.min.js'></script>
-  <script>
-    particlesJS.load('particles', './util/particle.config.json')
+    }, 300)
     </script>
 </body>
 
