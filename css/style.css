@@ -4,33 +4,36 @@ html {
 body {
   padding: 0;
   margin: 0;
-  background: #ecf0f1;
-  /*background-image: linear-gradient(to bottom, rgba(236,240,241,1) 0%, rgba(239,1,124,1) 50%, rgba(239,1,124,1) 100%);*/
-  border-top: 4px solid #3498db;
-  height: calc(100% - 4px);
+  /*background: #B24592; /* fallback for old browsers */
+  /*background: -webkit-linear-gradient(to left, #B24592 , #F15F79); /* Chrome 10-25, Safari 5.1-6 */*/
+  /*background: linear-gradient(to left, #B24592 , #F15F79); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */*/
+
+
+
+  background: #f857a6; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #f857a6 , #ff5858); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #f857a6 , #ff5858); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 .content {
   width: 360px;
-
-  margin: 0 auto;
   position: relative;
-  top: 15%;
-  border-radius: 2px;
-  background-color: #ecf0f1;
-  box-shadow: 0px 1em 3em hsla(204, 70%, 20%, .4);
-
 
   font-family: "Raleway";
   font-weight: 100;
   text-align: center;
 
-  transition: all 750ms cubic-bezier(0.65, 0.05, 0.36, 1);
+  transition: all 500ms cubic-bezier(0.65, 0.05, 0.36, 1);
 }
 
 .content.hide {
   opacity: 0;
-  transform: scale(1.1);
+  transform: scale(.95);
 }
 
 .content .image,
@@ -63,19 +66,15 @@ body {
   padding-top: .5em;
   padding-bottom: .25em;
 
-  color: #2c3e50;
+  color: rgba(255, 255, 255, .75);
   text-align: center;
   font-size: 36px;
 }
 
-
-
-
 .content h2,
 .content h3 {
   margin: 0;
-  color: hsl(210, 29%, 60%);
-  color: #2c3e50;
+  color: rgba(255, 255, 255, .6);
 
 }
 
@@ -103,72 +102,58 @@ body {
 
 .content .contact {
   font-size: 0;
-  background: #ecf0f1;
   border-radius: inherit;
 }
 
-.content .contact a:first-child {
-  border-bottom-left-radius: inherit;
-}
-
-.content .contact a:last-child {
-  border-bottom-right-radius: inherit;
-}
-
-
-a.github {
-  color: #333;
-}
-a.github:hover {
-  background: #333;
-  color: white;
-}
-
-a.twitter {
-  color: #55acee;
-}
-a.twitter:hover {
-  background: #55acee;
-  color: white;
-}
-
-a.medium {
-  color: #02b875;
-}
-a.medium:hover {
-  background: #02b875;
-  color: white;
-}
-
-a.linked-in {
-  color: #0077B5
-}
-a.linked-in:hover {
-  background: #0077B5;
-  color: white;
-}
-
-a.resume {
-  color: #9b59b6;
-}
-a.resume:hover {
-  background: #9b59b6;
-  color: white;
-}
-
-a.email {
-  color: #dc4e41;
-}
-a.email:hover {
-  background: #dc4e41;
-  color: white;
-}
-
 .content .contact a {
-  font-size: 24px;
+  border-radius: 30px;
+  color: rgba(255, 255, 255, .7);
+  font-size: 30px;
   width: 60px;
   height: 60px;
   display: inline-block;
   line-height: 60px;
   transition: all 150ms ease-in;
+}
+
+.content .contact a:hover {
+  text-shadow: 0px 0px 3px rgba(0, 0, 0, .35);
+}
+
+a.github:hover {
+  background: rgba(0, 0, 0, .25);
+  color: #333;
+}
+
+a.twitter:hover {
+  background: rgba(0, 0, 0, .25);
+  color: #55acee;
+}
+
+a.medium:hover {
+  background: rgba(0, 0, 0, .25);
+  color: #02b875;
+}
+
+a.linked-in:hover {
+  background: rgba(0, 0, 0, .25);
+  color: #0077B5;
+}
+
+a.resume:hover {
+  background: rgba(0, 0, 0, .25);
+  color: #9b59b6;
+}
+
+a.email:hover {
+  background: rgba(0, 0, 0, .25);
+  color: #dc4e41;
+}
+
+#particles {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
