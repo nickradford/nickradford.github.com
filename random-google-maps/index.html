@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="Author" content="Shaun Utter">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta property="og:image" content="http://nicholasradford.com/random-google-maps/rgm.jpg" />
+        <title>Random Google Maps</title>
+        <script>
+
+		</script>
+		<style type="text/css">
+		
+			html
+			{
+				width: 100%;
+				height: 100%;
+			}
+			
+			body
+			{
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				background-color: #000000;
+				overflow: hidden;
+			}
+
+			.map 
+			{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				padding-bottom: 25px;
+			}
+
+			.gmnoprint a, .gmnoprint span
+			{
+    			display: none;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="map-canvas-1" class="map"></div>
+	    <div id="map-canvas-2" class="map"></div>
+	    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script type="text/javascript" src="TweenMax.min.js"></script>
+		<script type="text/javascript">
+			
+			var mapSet = 0;
+			var map_1;
+			var map_2;
+			var lat;
+			var lng;
+			
+			google.maps.visualRefresh = true;
+			
+			function updateLocation()
+			{
+				var rando = Math.floor(Math.random()*34);
+				
+				if(rando == 0)
+				{
+					//Amsterdam
+					lat = 52.3667;
+					lng = 4.9000;
+				}
+				else if(rando == 1)
+				{
+					//Athens
+					lat = 37.9838;
+					lng = 23.7275;
+				}
+				else if(rando == 2)
+				{
+					//Baghdad
+					lat = 33.3333;
+					lng = 44.4333;
+				}
+				else if(rando == 3)
+				{
+					//Bangkok
+					lat = 13.7563;
+					lng = 100.5018;
+				}
+				else if(rando == 4)
+				{
+					//Barcelona
+					lat = 41.3851;
+					lng = 2.1734;
+				}
+				else if(rando == 5)
+				{
+					//Beijing
+					lat = 39.9167;
+					lng = 116.3833;
+				}
+				else if(rando == 6)
+				{
+					//Berlin
+					lat = 52.5167;
+					lng = 13.3833;
+				}
+				else if(rando == 7)
+				{
+					//Boston
+					lat = 42.3601;
+					lng = -71.0589;
+				}
+				else if(rando == 8)
+				{
+					//Buenos Aires
+					lat = -34.6033;
+					lng = -58.3817;
+				}
+				else if(rando == 9)
+				{
+					//Cairo
+					lat = 30.0500;
+					lng = 31.2333;
+				}
+				else if(rando == 10)
+				{
+					//Chicago
+					lat = 41.8369;
+					lng = -87.6847;
+				}
+				else if(rando == 11)
+				{
+					//Copenhagen
+					lat = 55.6761;
+					lng = 12.5683;
+				}
+				else if(rando == 12)
+				{
+					//Dubai
+					lat = 25.2048;
+					lng = 55.2708;
+				}
+				else if(rando == 13)
+				{
+					//Hong Kong
+					lat = 22.2783;
+					lng = 114.1747;
+				}
+				else if(rando == 14)
+				{
+					//Istanbul
+					lat = 41.0136;
+					lng = 28.9550;
+				}
+				else if(rando == 15)
+				{
+					//London
+					lat = 51.5072;
+					lng = -0.1275;
+				}
+				else if(rando == 16)
+				{
+					//Los Angeles
+					lat = 34.0522;
+					lng = -118.2437;
+				}
+				else if(rando == 17)
+				{
+					//Madrid
+					lat = 40.4000;
+					lng = -3.6833;
+				}
+				else if(rando == 18)
+				{
+					//Mexico City
+					lat = 19.4333;
+					lng = -99.1333;
+				}
+				else if(rando == 19)
+				{
+					//Miami
+					lat = 25.7753;
+					lng = -80.2089;
+				}
+				else if(rando == 20)
+				{
+					//Moscow
+					lat = 55.7500;
+					lng = 37.6167;
+				}
+				else if(rando == 21)
+				{
+					//Mumbai
+					lat = 19.0760;
+					lng = 72.8777;
+				}
+				else if(rando == 22)
+				{
+					//New York
+					lat = 40.7127;
+					lng = -74.0059;
+				}
+				else if(rando == 23)
+				{
+					//Paris
+					lat = 48.8567;
+					lng = 2.3508;
+				}
+				else if(rando == 24)
+				{
+					//Philadelphia
+					lat = 39.9526;
+					lng = -75.1652;
+				}
+				else if(rando == 25)
+				{
+					//San Juan
+					lat = 18.4455;
+					lng = -66.1057;
+				}
+				else if(rando == 26)
+				{
+					//Sao Paulo
+					lat = -23.5505;
+					lng = -46.6333;
+				}
+				else if(rando == 27)
+				{
+					//Rio de Janeiro
+					lat = -22.9068;
+					lng = -43.1729;
+				}
+				else if(rando == 28)
+				{
+					//Sydney
+					lat = -33.8650;
+					lng = 151.2094;
+				}
+				else if(rando == 29)
+				{
+					//Tokyo
+					lat = 35.6833;
+					lng = 139.6833;
+				}
+				else if(rando == 30)
+				{
+					//Toronto
+					lat = 43.7000;
+					lng = -79.4000;
+				}
+				else if(rando == 31)
+				{
+					//Venice
+					lat = 45.4375;
+					lng = 12.3358;
+				}
+				else if (rando == 32)
+				{
+					//Washington DC
+					lat = 38.9047;
+					lng = -77.0164;
+				}
+				else if (rando == 33)
+				{
+					//San Francisco
+					lat = 37.9047;
+					lng = -122.4194;
+				}
+			}
+			
+			function randomMapStyle()
+			{
+				var mapStyle =
+				[
+					{
+						featureType: 'all',
+						elementType: 'labels',
+						stylers:
+						[
+							{ visibility: 'off' },
+						]
+					},
+					{
+						featureType: 'all',
+						elementType: 'geometry.stroke',
+						stylers:
+						[
+							{ visibility: 'off' }
+						]
+					},
+					{
+						featureType: 'administrative',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ visibility: 'off' },
+						]
+					},
+					{
+						featureType: 'landscape',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: 'on' },
+						]
+					},
+					{
+						featureType: 'landscape.man_made',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: randomOnOff() },
+						]
+					},
+					{
+						featureType: 'landscape.natural.landcover',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: randomOnOff() },
+						]
+					},
+					{
+						featureType: 'landscape.natural.terrain',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: randomOnOff() },
+						]
+					},
+					{
+						featureType: 'poi.attraction',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: randomOnOff() },
+						]
+					},
+					{
+						featureType: 'poi.business',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: randomOnOff() },
+						]
+					},
+					{
+						featureType: 'poi.government',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: randomOnOff() },
+						]
+					},
+					{
+						featureType: 'poi.medical',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: randomOnOff() },
+						]
+					},
+					{
+						featureType: 'poi.park',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: randomOnOff() },
+						]
+					},
+					{
+						featureType: 'poi.place_of_worship',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: randomOnOff() },
+						]
+					},
+					{
+						featureType: 'poi.school',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: randomOnOff() },
+						]
+					},
+					{
+						featureType: 'poi.sports_complex',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: randomOnOff() },
+						]
+					},
+					{
+						featureType: 'road.arterial',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: randomOnOff() },
+						]
+					},
+					{
+						featureType: 'road.highway',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: randomOnOff() },
+						]
+					},
+					{
+						featureType: 'road.local',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: randomOnOff() },
+						]
+					},
+					{
+						featureType: 'transit.line',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: randomOnOff() },
+						]
+					},
+					{
+						featureType: 'transit.station.airport',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: randomOnOff() },
+						]
+					},
+					{
+						featureType: 'transit.station.bus',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: randomOnOff() },
+						]
+					},
+					{
+						featureType: 'transit.station.rail',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: randomOnOff() },
+						]
+					},
+					{
+						featureType: 'water',
+						elementType: 'geometry',
+						stylers:
+						[
+							{ color: '#'+Math.floor(Math.random()*16777215).toString(16) },
+							{ visibility: 'on' },
+						]
+					}
+				];
+
+				return mapStyle;
+			}
+			
+			function randomOnOff()
+			{
+				if(Math.floor(Math.random()*2)==0){return 'off'}else{return 'on'}
+			}
+			
+			function randomZoom()
+			{
+				var newZoom = Math.floor(Math.random()*12)+4;
+				return newZoom;
+			}
+
+			function mapOptions()
+			{
+				updateLocation();
+				
+				var mapOptions = 
+				{
+					center: new google.maps.LatLng(lat, lng),
+					mapTypeId: google.maps.MapTypeId.ROADMAP,
+					zoom: randomZoom(),
+					backgroundColor: '#000000',
+					streetViewControl: false,
+					mapTypeControl: false,
+					panControl: false,
+					zoomControl: false,
+					scrollwheel: false,
+					disableDoubleClickZoom: true,
+					keyboardShortcuts: false,
+					draggable: false,
+					disableDefaultUI: true
+				}
+
+				return mapOptions;
+			}
+		
+			function initialize()
+			{
+				mapOptions_1 = mapOptions();
+				map_1 = new google.maps.Map(document.getElementById("map-canvas-1"), mapOptions_1);
+				map_1.mapTypes.set('stylized', new google.maps.StyledMapType(randomMapStyle()));
+				map_1.setMapTypeId('stylized');
+				
+				mapOptions_2 = mapOptions();
+				map_2 = new google.maps.Map(document.getElementById("map-canvas-2"), mapOptions_2);
+				map_2.mapTypes.set('stylized', new google.maps.StyledMapType(randomMapStyle()));
+				map_2.setMapTypeId('stylized');
+				
+				updateMaps();
+				setInterval(function(){updateMaps()},10000);
+			}
+
+			function updateMaps()
+			{
+				if (mapSet == 1)
+				{
+					updateLocation();
+					map_1.setZoom(randomZoom());
+					map_1.setCenter(new google.maps.LatLng(lat, lng));
+					map_1.mapTypes.set('stylized', new google.maps.StyledMapType(randomMapStyle()));
+					map_1.setMapTypeId('stylized');
+
+					var series = document.getElementById("map-canvas-2");
+					TweenMax.to(series,3,{opacity:0,delay:3})
+					
+					mapSet = 0;
+				}
+				else
+				{
+					updateLocation();
+					map_2.setZoom(randomZoom());
+					map_2.setCenter(new google.maps.LatLng(lat, lng));
+					map_2.mapTypes.set('stylized', new google.maps.StyledMapType(randomMapStyle()));
+					map_2.setMapTypeId('stylized');
+					
+					var series = document.getElementById("map-canvas-2");
+					TweenMax.to(series,3,{opacity:1,delay:3})
+					
+					mapSet = 1;
+				}
+			}
+			
+			google.maps.event.addDomListener(window, 'load', initialize);
+			
+		</script>
+	</body>
+</html>
