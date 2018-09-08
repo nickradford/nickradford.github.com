@@ -1,19 +1,18 @@
 html {
   height: 100%;
+  overflow: hidden;
+  font-size: 100%;
 }
 body {
   padding: 0;
   margin: 0;
-  /*background: #B24592; /* fallback for old browsers */
-  /*background: -webkit-linear-gradient(to left, #B24592 , #F15F79); /* Chrome 10-25, Safari 5.1-6 */*/
-  /*background: linear-gradient(to left, #B24592 , #F15F79); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */*/
+
+  background: #12c2e9;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #f64f59, #c471ed, #12c2e9);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */  
 
 
-
-  background: #f857a6; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to left, #f857a6 , #ff5858); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to left, #f857a6 , #ff5858); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,6 +26,7 @@ body {
   font-family: "Raleway";
   font-weight: 100;
   text-align: center;
+  overflow: hidden;
 
   transition: all 500ms cubic-bezier(0.65, 0.05, 0.36, 1);
 }
@@ -38,8 +38,8 @@ body {
 
 .content .image,
 .content .about-me {
-  padding-left: 2em;
-  padding-right: 2em;
+  padding-left: 2rem;
+  padding-right: 2rem;
   box-sizing: padding-box;
   display: block;
 }
@@ -48,8 +48,8 @@ body {
 .content .image {
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
-  padding-top: 2em;
-  padding-bottom: 1em;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
 }
 
 .content .image img {
@@ -58,45 +58,28 @@ body {
 }
 
 .content .about-me {
-  padding-bottom: 1em;
+  padding-bottom: 1rem;
 }
 
 .content h1 {
   margin: 0;
-  padding-top: .5em;
-  padding-bottom: .25em;
+  padding-top: .5rem;
+  padding-bottom: .25rem;
 
-  color: rgba(255, 255, 255, .75);
+  color: #f5f5f5;
   text-align: center;
-  font-size: 36px;
+  font-size: 2.625rem;
+  overflow: hidden;
 }
 
 .content h2,
 .content h3 {
   margin: 0;
-  color: rgba(255, 255, 255, .6);
-
-}
-
-.content h2 {
-  font-size: 18px;
-}
-
-.content h2 a {
-  color: hsl(210, 80%, 80%);
-  color: #3498db;
-  text-decoration: none;
-  transition: color 100ms ease-in;
-}
-
-.content h2 a:hover {
-  color: hsl(210, 29%, 90%);
-  color: #e74c3c;
+  color: #f5f5f5;
 }
 
 .content h3 {
-  padding: .5em;
-  font-size: 14px;
+  padding: .35rem;
   font-style: italic;
 }
 
@@ -107,7 +90,7 @@ body {
 
 .content .contact a {
   border-radius: 30px;
-  color: rgba(255, 255, 255, .7);
+  color: #f5f5f5;
   font-size: 30px;
   width: 60px;
   height: 60px;

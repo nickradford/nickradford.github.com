@@ -86,10 +86,7 @@
     particlesJS.load('particles', './util/particle.config.json')
     
     // Fade in content
-    var content = document.querySelector('.content')
-    setTimeout(function() {
-      content.classList.remove('hide')
-    }, 300)
+    setTimeout(() => document.querySelector('.content').classList.remove('hide'), 300)
     </script>
 </body>
 
