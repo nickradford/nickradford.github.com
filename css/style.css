@@ -3,6 +3,12 @@ html {
   overflow: hidden;
   font-size: 100%;
 }
+
+::selection {
+  color: white;
+  background: black;
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -50,6 +56,7 @@ body {
   border-top-right-radius: inherit;
   padding-top: 2rem;
   padding-bottom: 1rem;
+  user-select: none;
 }
 
 .content .image img {
