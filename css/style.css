@@ -1,6 +1,6 @@
 html {
   height: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
   font-size: 100%;
 }
 
@@ -37,6 +37,8 @@ body {
 .content {
   width: 360px;
   position: relative;
+
+  padding: 2rem 0;
 
   font-family: "Raleway";
   font-weight: 100;
