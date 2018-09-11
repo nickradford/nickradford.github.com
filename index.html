@@ -64,12 +64,23 @@
     </div>
     <section class='projects'>
       <h2>Projects</h2>
+      <div class='project-indicator'></div>
       <div class="project-container">
-        <div>
+        <div class='project'>
           <a href='http://github.com/nickradford/ts-data-structures'>
             <div>
               <h3>ts-data-structures</h3>
               <p>A TypeScript library for common data structures.</p>
+            </div>
+            <i class='fa fa-chevron-right'></i>
+          </a>
+        </div>
+
+        <div class="project">
+          <a href='http://nickradford.itch.io/lumina'>
+            <div>
+              <h3>Lumina</h3>
+              <p>A short puzzle/platformer for the Brackeys Game Jam. Made with Unity</p>
             </div>
             <i class='fa fa-chevron-right'></i>
           </a>
@@ -93,15 +104,46 @@
     ga('create', 'UA-12199454-4', 'auto');
     ga('send', 'pageview');
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.4.3/mobile-detect.min.js"></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/trianglify/0.4.0/trianglify.min.js"></script>
   <script src='./scripts/particles.min.js'></script>
+  <script src='./scripts/siema.min.js'></script>
   <script>
     // Load Particles
     particlesJS.load('particles', './util/particle.config.json')
 
     // Fade in content
     setTimeout(() => document.querySelector('.content').classList.remove('hide'), 300)
+
+    // initiate slider if mobile
+    var md = new MobileDetect(window.navigator.userAgent)
+
+    if (md.mobile() || md.phone() || md.tablet()) {
+      var divs = document.querySelectorAll('.project-container > div')
+      divs.forEach(() => {
+        var node = document.createElement('i', {})
+        node.classList.add('indicator', 'fa', 'fa-circle')
+        document.querySelector('.project-indicator').appendChild(node)
+      })
+
+      document.querySelector('.indicator').classList.add('active')
+
+      function udpateActiveIndicator() {
+        var indicators = document.querySelectorAll('.indicator')
+        indicators.forEach((i) => i.classList.remove('active'))
+        indicators.item(slider.currentSlide).classList.add('active')
+
+      }
+
+      var slider = new Siema({
+        selector: '.project-container',
+        loop: true,
+        onChange: udpateActiveIndicator
+      })
+    }
   </script>
+
 </body>
 
 </html>

@@ -157,17 +157,28 @@ a.email:hover {
 }
 
 .projects > h2 {
-  padding: 1rem 0 1.25rem;
+  padding: 1rem 0 0.75rem;
 }
 
-.project-container > div {
+.indicator {
+  font-size: 0.6rem;
+  padding: 0.25rem;
+  color: rgba(51, 51, 51, 0.5);
+  transition: color 200ms ease-in;
+}
+
+.indicator.active {
+  color: white;
+}
+
+.project {
   background: rgba(51, 51, 51, 0.5);
   border-radius: 6px;
-  margin: 0.25rem 0;
+  margin: 0.5rem 0.25rem 1rem;
   transition: background 200ms ease-in;
 }
 
-.project-container > div:hover {
+.project:hover {
   background: rgba(51, 51, 51, 0.7);
 }
 
@@ -176,7 +187,7 @@ a.email:hover {
   padding: 0;
 }
 
-.project-container > div > a {
+.project > a {
   font-family: "Courier New", Courier, monospace;
   font-style: normal;
   text-decoration: none;
@@ -186,10 +197,10 @@ a.email:hover {
   padding: 0.5rem 0 0.25rem 1rem;
 }
 
-.project-container > div > a {
+.project > a {
   text-align: left;
 }
 
-.project-container > div > a > i {
+.project > a > i {
   padding: 1em;
 }
